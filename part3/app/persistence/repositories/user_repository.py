@@ -11,3 +11,8 @@ class UserRepository(SQLAlchemyRepository):
     def get_admin_users(self):
         """Get all users with admin rights."""
         return self.model.query.filter_by(is_admin=True).all()
+
+    def get_by_id(self, user_id):
+        """Retrieve a user by their ID."""
+        return self.model.query.get(user_id)
+
