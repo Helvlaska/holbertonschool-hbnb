@@ -41,6 +41,7 @@ from flask_jwt_extended import (
     create_refresh_token
 )
 from app.services import facade
+from app.models.user import User
 
 api = Namespace(  # Namespace permet de regrouper les routes pr une même entité
     'auth',                                            # Le nom du Namespace
@@ -102,7 +103,8 @@ class Login(Resource):
         # Retourne le token
         return {
             'access_token': access_token,
-            'refresh_token': refresh_token
+            'refresh_token': refresh_token,
+            'user': user.to_dict()
         }, 200
 
 
