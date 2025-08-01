@@ -12,8 +12,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const token = localStorage.getItem("access_token");
 
-    console.log("Je suis la page et j'ai bien fini de charger !")
-
     // Fonction pour bloquer le bouton si les champs obligatoire ne sont pas tous remplis
     function toggleButtonState() {
         // Nettoie et vérifie si les champs ne sont pas vide
@@ -65,9 +63,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const latitude = parseFloat(latitudeInput.value);             // Valeur de la latitude
         const longitude = parseFloat(longitudeInput.value);           // Valeur de la longitude
         const owner = JSON.parse(localStorage.getItem('user')).id;    // Récupère l'id du user dans le localStorage
-
-        console.log(owner);
-
         const log = {                                                 // Model de l'objet envoyé
             title: title,
             description: description,
@@ -75,9 +70,8 @@ document.addEventListener('DOMContentLoaded', function () {
             owner: owner,
             latitude: latitude,
             longitude: longitude
-        }
+        };
 
-        console.log(JSON.stringify(log));
         // Envoie de la requête à l'api pour créer une nouvelle place
         fetch("http://localhost:5000/api/v1/places/", {
             method: "POST",
@@ -105,10 +99,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Gestions des données récupérées
         .then(data => {
-            console.log("Je viens de récupérer la réponse de la requête!")
             // Vérifie que les data sont correctes sinon sort du fetch
             if (!data) return;
-            console.log("Je fais mes trucs avec les datas")
             window.location.href = "index.html";    // Si ok redirection vers la page d'accueil
         })
 
