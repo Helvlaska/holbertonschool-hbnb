@@ -127,3 +127,13 @@ class Review(BaseModel):
 
         # Si tout est OK passe value à l'attribut 'user_id'
         self.user_id = value.id
+
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'place_id': self.place_id,
+            'user_id': self.user_id,
+            'text': self.text,
+            'rating': self.rating
+        }
