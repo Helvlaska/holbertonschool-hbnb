@@ -1,0 +1,150 @@
+#place-details {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+    height: 50%;
+}
+
+#place-details > h1 {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+h1 {
+    width: 100%;
+    margin-bottom: 10px;
+}
+.place-details-img {
+    width: 59%;
+    object-fit: cover;
+    display: block;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.place-map-info {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    gap: 10px;
+    width: 39%;
+    height: 100%;
+}
+
+
+.map-container {
+    position: relative;
+    height: 50%;
+}
+
+.map-image {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.map-marker {
+  position: absolute;
+  width: 8%;
+  border-radius: 5px;
+  transform: translate(-50%, -100%);
+}
+
+.place-details-info {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #D9D9D9;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    padding: 20px;
+}
+
+.place-price {
+    display: flex;
+    align-items: center;
+}
+.place-card-price {
+    width: 20px;
+}
+
+#reviews {
+    display: flex;
+    width: 100%;
+    margin: 20px 0px;
+    justify-content: space-between;
+}
+
+#reviews-list {
+    width: 59%;
+    margin-bottom: 10px;
+}
+
+.review-details-card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    width: 100%;
+}
+
+#add-review {
+    display: none;
+    width: 39%;
+}
+
+.review-place-text {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+}
+
+.review-place-text > textarea {
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #D9D9D9;
+}
+
+.review-place-text > label, .rating-stars > label {
+    margin-right: 10px;
+}
+
+.full-star-icone, .empty-star-icone {
+    width: 20px;
+    margin: 6px 6px 0px 0px;
+}
+.rating-stars {
+    display: flex;
+    align-items: flex-start;
+    margin-top: 20px;
+}
+.rating-stars .star {
+  width: 22px;
+  margin: 0px 6px 0px 0px;
+  cursor: pointer;
+  transition: filter 0.1s;
+}
+
+.btn-place-submit {
+    border: none;
+    background-color: #f4f4f4;
+    width: 50px;
+    height: 100%;
+}
+.btn-place-submit > img {
+    width: 50px;
+    border-radius: 5px;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+form {
+    display: flex;
+    width: 100%;
+}
