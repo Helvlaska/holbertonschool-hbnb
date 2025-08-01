@@ -21,6 +21,8 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 from app.services import facade
 from app.api.v1.users import user_place_model
 from app.utils.decorators import handle_errors
+from app.persistence.repositories.user_repository import UserRepository
+user_repository = UserRepository()
 
 api = Namespace(  # Namespace permet de regrouper les routes pr une même entité
     'places',                           # Le nom du Namespace
@@ -88,7 +90,8 @@ place_detail_model = api.model('PlaceDetailModel', {
     'reviews': fields.List(fields.Nested(api.model('ReviewMiniModel', {
         'id': fields.String(),                      # "fields.String" = string
         'rating': fields.Integer(),                # "fields.Integer" = Integer
-        'comment': fields.String()                  # "fields.String" = string
+        'text': fields.String(),                  # "fields.String" = string
+        'user': fields.Nested(user_place_model)       # "fields.Nested" = Dict
     })))
 })
 
@@ -182,10 +185,17 @@ class PlaceList(Resource):             # Récupération des méthodes par Resour
             # Construction de la liste des reviews
             reviews = []
             for review in place.reviews:
-                review_data = {}
-                review_data["id"] = review.id
-                review_data["rating"] = review.rating
-                review_data["text"] = review.text
+                review_data = {
+                    "id": review.id,
+                    "rating": review.rating,
+                    "text": review.text,
+                    "user": {
+                        "id": review.user.id,
+                        "first_name": review.user.first_name,
+                        "last_name": review.user.last_name,
+                        "email": review.user.email
+                    }
+                }
                 reviews.append(review_data)
 
             # Construction de la place complète
@@ -236,12 +246,21 @@ class PlaceResource(Resource):         # Récupération des méthodes par Resour
             amenity_data["id"] = amenity.id
             amenity_data["name"] = amenity.name
             amenities.append(amenity_data)
+
+        # Construction de la liste des reviews
         reviews = []
         for review in place.reviews:
-            review_data = {}
-            review_data["id"] = review.id
-            review_data["rating"] = review.rating
-            review_data["comment"] = review.text
+            review_data = {
+                "id": review.id,
+                "rating": review.rating,
+                "text": review.text,
+                "user": {
+                    "id": review.user.id,
+                    "first_name": review.user.first_name,
+                    "last_name": review.user.last_name,
+                    "email": review.user.email
+                }
+            }
             reviews.append(review_data)
 
         return {
