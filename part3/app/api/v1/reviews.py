@@ -24,11 +24,27 @@ from app.services import facade
 from app.api.v1.users import user_model
 from app.api.v1.amenities import amenity_model
 from app.utils.decorators import handle_errors
+from flask_restx.errors import ValidationError
+from werkzeug.exceptions import BadRequest
 
 api = Namespace(  # Namespace permet de regrouper les routes pr une même entité
     'reviews',    # Le nom du Namespace
     description='Review operations'     # Documentation autogénérée de l'API
 )
+
+@api.errorhandler(BadRequest)
+def handle_bad_request(error):
+    return {
+        "error": "Bad Request",
+        "message": str(error)
+    }, 400
+
+@api.errorhandler(ValidationError)
+def handle_validation_error(error):
+    return {
+        "error": "Invalid input data",
+        "details": error.data.get('errors') if error.data else str(error)
+    }, 400
 
 # ------------------------------------------- modèle de données pour validation
 # Sert à valider automatiquement les entrées dans les requêtes
@@ -39,10 +55,10 @@ review_model = api.model('Review', {               # "model" permet de déclarer
             required=True,                         # Champ obligatoire
             description='ID of the place the review is about'   # Description
         ),
-        'user_id': fields.String(                  # "fields.String" = string
-            required=True,                         # Champ obligatoire
-            description='ID of the user who made the review'    # Description
-        ),
+        #'user_id': fields.String(                  # "fields.String" = string
+        #   required=True,                         # Champ obligatoire
+        #    description='ID of the user who made the review'    # Description
+        #),
         'text': fields.String(                     # "fields.String" = string
             required=True,                         # Champ obligatoire
             description='The content of the review'             # Description
@@ -123,6 +139,7 @@ class ReviewList(Resource):     # "Resource" = methodes requête (POST, GET, ..)
     @api.response(201, 'Review successfully created')               # OK
     @api.response(400, 'Invalid input data')                        # NOK
     @api.response(400, 'User or Place not found')                   # NOK
+    @api.doc(responses={400: 'Bad Request - Mauvais format JSON ou champ manquant'})
     @handle_errors
     @jwt_required()
 # ---------------------------------- Fonction pour enregister un nouveau review
@@ -146,38 +163,56 @@ class ReviewList(Resource):     # "Resource" = methodes requête (POST, GET, ..)
             400 if user is not allowed to review,
             404 if the place does not exist.
         """
-        current_user = get_jwt_identity()
-        # Récupère l'identité de l'utilisateur connecté via le token JWT
-        user_id = current_user['id']
-        review_data = api.payload      # Récup les datas envoyées par le client
-        # Extrait l'ID du lieu depuis les données
-        place_id = (
-            review_data.get('place_id')
-            if isinstance(review_data, dict)
-            else review_data
-        )
-        # Vérifie si le lieu existe dans la base
-        place = facade.get_place(place_id)
-        if not place:
-            return {'error': 'place not found'}, 404
-        # L'utilisateur ne peut pas commenter son propre lieu
-        if place.owner == user_id:
-            return {'error': 'You cannot review your own place'}, 400
-        # Récupère les avis existants pour ce lieu
-        existing_reviews = facade.get_reviews_by_place(place_id)
-        # Vérifie si l'utilisateur a déjà laissé un avis pour ce lieu
-        if any(review.user_id == user_id for review in existing_reviews):
-            return {'error': 'You have already reviewed this place'}, 400
-        # Si tout est valide, crée un nouvel avis avec les donnéesfournies
-        new_review = facade.create_review(review_data)
-        # Retourne les infos de l'avis créé sous forme de JSON
-        return {
-            'id': new_review.id,
-            'place_id': new_review.place_id,
-            'user_id': new_review.user_id,
-            'text': new_review.text,
-            'rating': new_review.rating
-            }, 201                              # Création OK
+        import traceback
+        try:
+            print("🔥 Entrée dans POST /reviews")
+
+            current_user = get_jwt_identity()
+            # Récupère l'identité de l'utilisateur connecté via le token JWT
+            user_id = current_user['id']
+            review_data = api.payload      # Récup les datas envoyées par le client
+            review_data['user_id'] = user_id
+
+            print("📦 Données reçues dans api.payload :", api.payload)
+
+            # Extrait l'ID du lieu depuis les données
+            place_id = (
+                review_data.get('place_id')
+                if isinstance(review_data, dict)
+                else review_data
+            )
+            # Vérifie si le lieu existe dans la base
+            place = facade.get_place(place_id)
+            if not place:
+                return {'error': 'place not found'}, 404
+            # L'utilisateur ne peut pas commenter son propre lieu
+            if place.owner == user_id:
+                return {'error': 'You cannot review your own place'}, 400
+            # Récupère les avis existants pour ce lieu
+            existing_reviews = facade.get_reviews_by_place(place_id)
+            # Vérifie si l'utilisateur a déjà laissé un avis pour ce lieu
+            if any(review['user_id'] == user_id for review in existing_reviews):
+                return {'error': 'You have already reviewed this place'}, 400
+            # Si tout est valide, crée un nouvel avis avec les donnéesfournies
+            new_review = facade.create_review(review_data)
+
+            print("DEBUG → new_review brut :", new_review)
+            print("DEBUG → type de new_review :", type(new_review))
+
+            user = facade.get_user(user_id)
+            # Retourne les infos de l'avis créé sous forme de JSON
+            return {
+                'id': new_review.id,
+                'place_id': new_review.place_id,
+                'user_id': new_review.user_id,
+                'text': new_review.text,
+                'rating': new_review.rating,
+                'user': user.to_dict()
+            }, 201
+        except Exception:
+            print("🔥 Une erreur est survenue dans POST /reviews")
+            traceback.print_exc()  # Affiche le fichier, la ligne, l'erreur exacte
+            return {"error": "Internal Server Error"}, 500
 
 # ----------------------------------------- Route POST & GET : /api/v1/reviews/
     @api.response(200, 'List of reviews retrieved successfully')
@@ -193,17 +228,16 @@ class ReviewList(Resource):     # "Resource" = methodes requête (POST, GET, ..)
         """
         # Récupère les reviews dans le _storage
         reviews = facade.get_all_reviews()
-        reviews_list = []                  # Crée une liste vide
-        for review in reviews:             # Boucle dans le storage
-            reviews_list.append({          # Ajoute chaque review dans la liste
-                'id': review.id,
-                'place_id': review.place_id,
-                'user_id': review.user_id,
-                'text': review.text,
-                'rating': review.rating
-            })
+        reviews_list = []  # Crée une liste vide
 
-        return reviews_list, 200           # Return la liste
+        # Boucle dans le storage
+        for review in reviews:
+            user = facade.get_user(review.user_id)  # Récupère l'utilisateur associé
+            review_dict = review.to_dict()          # Transforme la review en dict
+            review_dict['user'] = user.to_dict()    # Ajoute les infos de l'user
+            reviews_list.append(review_dict)        # Ajoute à la liste finale
+
+        return reviews_list, 200  # Retourne la liste avec les users
 
 
 # ----------------------- Route GET, PUT & DELETE : /api/v1/reviews/<review_id>
@@ -355,15 +389,18 @@ class ReviewsByPlace(Resource):        # Récupération des méthodes par Resour
         place = facade.get_place(place_id)      # Récupère la place par son id
         if not place:                  # Si la place n'est pas trouvée = Erreur
             return {'error': 'Place not found'}, 404
+        user = facade.get_user(review.user_id)
         # Récupère les reviews via l'id de la place
         reviews = facade.get_reviews_by_place(place_id)
         reviews_place_list = []
         for review in reviews:
+            user = facade.get_user(review.user_id)
             reviews_place_list.append({
                 'id': review.id,
                 'place_id': review.place_id,
                 'user_id': review.user_id,
                 'text': review.text,
-                'rating': review.rating
+                'rating': review.rating,
+                'user': user.to_dict()
             })
         return reviews_place_list, 200          # Return la liste
