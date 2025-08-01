@@ -2,6 +2,10 @@ from flask import Flask
 from flask_restx import Api
 from config import DevelopmentConfig #import propre
 from app.extensions import db, bcrypt, jwt
+from flask_cors import CORS
+from flask import jsonify
+from jwt.exceptions import ExpiredSignatureError
+from flask_jwt_extended import JWTManager
 #-------------------------------------------------------------- Import namespace
 
 from app.api.v1.users import api as users_ns                # users
@@ -24,9 +28,25 @@ authorizations = {
 def create_app(config_class="config.DevelopmentConfig"): #devconfig sera automatiquement appliqué
     app = Flask(__name__)   # Création application Flask
     app.config.from_object(config_class) # applique la configuration
+    CORS(app)
     bcrypt.init_app(app)
     jwt.init_app(app)
     db.init_app(app)
+
+    @jwt.expired_token_loader
+    def expired_token_callback(jwt_header, jwt_payload):
+        print("⚠️ Token expiré")
+        return jsonify({"message": "Token has expired"}), 401
+
+    @jwt.invalid_token_loader
+    def invalid_token_callback(error_string):
+        print("❌ Token invalide :", error_string)
+        return jsonify({"message": "Invalid token"}), 422
+
+    @jwt.unauthorized_loader
+    def unauthorized_callback(error_string):
+        print("🚫 Aucun token :", error_string)
+        return jsonify({"message": "Missing Authorization Header"}), 401
 
     api = Api(              # Infos pour la documentation Swagger
         app,
