@@ -20,6 +20,15 @@ from app.models import user
 logging.basicConfig(filename='app.log', level=logging.DEBUG,
                     format='%(asctime)s %(levelname)s: %(message)s')
 app = create_app()
+
+print("📡 Routes Flask exposées :")
+for rule in app.url_map.iter_rules():
+    print(f"[ROUTE] {rule}  → méthodes: {rule.methods}")
+
+print("📡 Routes disponibles :")
+for rule in app.url_map.iter_rules():
+    print(f"🔗 {rule} → {rule.methods}")
+
 with app.app_context():
     db.create_all()
 
