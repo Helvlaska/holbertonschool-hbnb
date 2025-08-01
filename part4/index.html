@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List of Places</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/home.css">
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <a href="index.html" class="header-logo-link">
+                <img class="logo" src="assets/Logo_hbnb.png" alt="logo"/>
+            </a>
+            <nav>
+                <a href="login.html" id="login-link" class="login-button" title="login">
+                    <img src="assets/ticket.jpg" class="logo-btn-login">
+                </a>
+                <div class="menu">
+                    <a href="add_place.html" id="add-place-link" class="add-place-button" title="add place">
+                        <img src="assets/icone_create_place.png" class="add-place">
+                    </a>
+                    <a href="#" id="logout-link" class="logout-button">
+                        <img src="assets/cross.png" class="logout-button ">
+                    </a>
+                </div>
+            </nav>
+        </header>
+        <main>
+            <div class="header-place">
+                <h1>Available Places</h2>
+                <section id="filter">
+                    <label for="price-filter">
+                    </label>
+                    <div class="filter-barre">
+                        <input type="range" id="price-slider" min="0" max="3" step="1" value="0">
+                        <div id="slider-labels">
+                            <span>All</span>
+                            <span>100</span>
+                            <span>50</span>
+                            <span>10</span>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <section id="places-list"></section>
+        </main>
+        <footer>
+            <div class="footer-info">
+                <img src="assets/dodo_logo.jpg" class="logo-footer">
+                <div class="footer-link">
+                    <div class="propos">
+                        <h3>A propos</h3>
+                        <ul>
+                            <li><a href="#">Fonctionnement du site</a></li>
+                            <li><a href="#">Conditions générales de vente</a></li>
+                            <li><a href="#">Données et confidentialité</a></li>
+                        </ul>
+                    </div>
+                    <div class="heberg">
+                        <h3>Nos hébergements</h3>
+                        <ul>
+                            <li><a href="#">Charte qualité</a></li>
+                            <li><a href="#">Soumettre votre maison</a></li>
+                        </ul>
+                    </div>
+                    <div class="help">
+                        <h3>Assistance</h3>
+                        <ul>
+                            <li><a href="#">Centre d'aide</a></li>
+                            <li><a href="#">Nous contactez</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <p>© 2024 HBnB Evolution All rights reserved</p>
+        </footer>
+    </div>
+    <script src="js/auth.js"></script>
+    <script src="js/index.js"></script>
+</body>
+</html>

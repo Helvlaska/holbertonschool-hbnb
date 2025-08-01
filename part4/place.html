@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Place Details</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/place.css">
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <a href="index.html">
+                <img class="logo" src="assets/Logo_hbnb.png" alt="logo"/>
+            </a>
+        </header>
+        <main>
+            <section id="place-details"></section>
+            <section id="reviews">
+                <section id="reviews-list">
+                    <h1>Reviews</h1>
+                </section>
+                <section id="add-review">
+                    <h1>Add a Review</h1>
+                    <form id="review-form">
+                        <div class="reviews-data">
+                            <div class="review-place-text">
+                                <label for="review-text">Review:</label>
+                                <textarea id="review-text" name="review-text" required></textarea>
+                            </div>
+                            <div class="rating-stars">
+                                <label>Rating:</label>
+                                <div id="stars">
+                                    <img src="assets/empty_star.png" data-index="1" class="star" alt="star" />
+                                    <img src="assets/empty_star.png" data-index="2" class="star" alt="star" />
+                                    <img src="assets/empty_star.png" data-index="3" class="star" alt="star" />
+                                    <img src="assets/empty_star.png" data-index="4" class="star" alt="star" />
+                                    <img src="assets/empty_star.png" data-index="5" class="star" alt="star" />
+                                </div>
+                                <input type="hidden" id="rating" name="rating" required>
+                            </div>
+                        </div>
+                        <button class="btn-place-submit" type="submit">
+                            <img src="assets/icone_send.jpg" alt="Bouton submit">
+                        </button>
+                    </form>
+                </section>
+            </section>
+        </main>
+        <footer>
+            <img src="assets/dodo_logo.jpg" class="logo-footer">
+            © 2024 HBnB Evolution All rights reserved
+        </footer>
+    </div>
+    <script src="js/auth.js"></script>
+    <script src="js/place.js"></script>
+</body>
+</html>

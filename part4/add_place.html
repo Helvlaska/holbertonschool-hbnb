@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Place</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <a href="index.html">
+                <img class="logo" src="assets/Logo_hbnb.png" alt="logo"/>
+            </a>
+        </header>
+        <main>
+            <form id="add-place-form">
+                <h2>Add Place</h2>
+                <div class="form">
+                    <label for="title">Name of place:</label>
+                    <input type="text" id="title" name="title" required>
+
+                    <label for="description">Description:</label>
+                    <input type="text" id="description" name="description">
+
+                    <label for="price">Price:</label>
+                    <input type="number" step="any" id="price" name="price" required>
+
+                    <label for="latitude">Latitude:</label>
+                    <input type="number" step="any" id="latitude" name="latitude" required>
+
+                    <label for="longitude">Longitude:</label>
+                    <input type="number" step="any" id="longitude" name="longitude" required>
+                </div>
+                <div id="error-message"></div>
+                <button type="submit" class="btn-submit" id="place-button" >Add Place</button>
+            </form>
+        </main>
+        <footer>
+            <img src="assets/dodo_logo.jpg" class="logo-footer">
+            © 2024 HBnB Evolution All rights reserved
+        </footer>
+    </div>
+    <script src="js/auth.js"></script>
+    <script src="js/add_place.js"></script>
+</body>
+</html>
