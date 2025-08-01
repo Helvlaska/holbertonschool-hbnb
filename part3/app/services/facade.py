@@ -13,7 +13,7 @@ from app.models.user import User
 from app.models.amenity import Amenity
 from app.models.place import Place
 from app.models.review import Review
-
+from app import db
 
 class HBnBFacade:
     def __init__(self):
@@ -42,7 +42,8 @@ class HBnBFacade:
 
     def get_user_by_email(self, email):
         """Get a user by their email."""
-        return self.user_repository.get_user_by_email(email)
+        user = db.session.query(User).filter_by(email=email).first()
+        return user
 
     def get_all_users(self):
         """Return a list of all users."""
@@ -50,7 +51,7 @@ class HBnBFacade:
 
     def get_user(self, user_id):
         """Get a user by their ID."""
-        return self.user_repository.get(user_id)
+        return self.user_repository.get_by_id(user_id)
 
     def update_user(self, user_id, update_data):
         """Update user data after checking permissions and validation."""
@@ -210,6 +211,10 @@ class HBnBFacade:
         place_data.pop('owner', None)
 
         try:
+            print("🩺 owner =", owner)
+            print("🩺 owner type =", type(owner))
+            print("🩺 hasattr(owner, 'id') =", hasattr(owner, 'id'))
+
             # Passe les données dans les méthodes de classe
             place = Place(**place_data, owner=owner)
             # Ajout de la place dans le storage
@@ -259,8 +264,14 @@ class HBnBFacade:
         for review in all_reviews:
             # Vérifie si il y a match
             if review.place_id == place_id:
+                # Récupération du user associé à la review
+                user = self.user_repository.get_by_id(review.user_id)
+                # Transformation de la review en dictionnaire
+                review_dict = review.to_dict()
+                # Ajout des infos utilisateur dans le dictionnaire
+                review_dict['user'] = user.to_dict()
                 # Ajoute la review à la liste
-                reviews_place.append(review)
+                reviews_place.append(review_dict)
         return reviews_place
 
     def create_review(self, review_data):
@@ -289,6 +300,8 @@ class HBnBFacade:
             )
         except (TypeError, ValueError) as e:
             # Gestion des messages selon l'erreur
+            import traceback
+            traceback.print_exc()
             raise ValueError(f"Invalid review: {str(e)}")
 
         # Ajout de la review à la BDD
