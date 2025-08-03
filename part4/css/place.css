@@ -64,6 +64,17 @@ h1 {
     padding: 20px;
 }
 
+.place-owner {
+    display: flex;
+    align-items: center;
+}
+
+.avatar-img {
+    width: 15%;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
 .place-price {
     display: flex;
     align-items: center;
@@ -85,6 +96,8 @@ h1 {
 }
 
 .review-details-card {
+    display: flex;
+    align-items: center;
     border: 1px solid #ddd;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -92,6 +105,12 @@ h1 {
     margin-bottom: 10px;
     background-color: #fff;
     width: 100%;
+}
+
+.avatar-img {
+    width: 15%;
+    height: fit-content;
+    margin-right: 10px;
 }
 
 #add-review {
