@@ -54,10 +54,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Ecoute si le client corrige un input erroné après un message d'erreur -> remet à zéro le message d'erreur
         emailInput.addEventListener('input', function () {
-            document.getElementById('error-message').textContent = "";
+            document.getElementById('error-message-login').textContent = "";
         });
         passwordInput.addEventListener('input', function () {
-            document.getElementById('error-message').textContent = "";
+            document.getElementById('error-message-login').textContent = "";
         });
 
         // Récupération et traitement des données par un fetch
@@ -114,14 +114,14 @@ document.addEventListener('DOMContentLoaded', function () {
             signupForm.addEventListener('submit', function (event) {
                 event.preventDefault();     // Bloque le rafraichissement de la page lors du submit
 
-                const first_name = signup_first_name.value; // Valeur du first name
-                const last_name = signup_last_name.value;   // Valeur du last name
-                const email = signup_email.value;           // Valeur de l'email
-                const password = signup_password.value;     // Valeur du password
+                const firstName = document.getElementById("first-name").value; // Valeur du first name
+                const lastName = document.getElementById("last-name").value;   // Valeur du last name
+                const email = document.getElementById("signup-email").value;           // Valeur de l'email
+                const password = document.getElementById("signup-password").value;     // Valeur du password
 
                 const user = {                              // Model de l'objet envoyé
-                    first_name: first_name,
-                    last_name: last_name,
+                    first_name: firstName,
+                    last_name: lastName,
                     email: email,
                     password: password,
                     is_admin: false
@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 .then(response => {
                     if (!response.ok) {
                         if (response.status === 400) {
-                            document.getElementById('error-message').textContent =
+                            document.getElementById('error-message-signup').textContent =
                                 "Invalid input data or email already registered";
                         } else {
                             throw new Error(`Erreur serveur : ${response.status}`);
@@ -150,38 +150,44 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 // Gestions des données récupérées
                 .then(data => {
-                    if (!data) return;
+                    if (!data) {
+                        console.warn("⛔ Aucune donnée utilisateur reçue après inscription.");
+                        return;
+                    }
+
+                    console.log("➡️ Connexion après inscription en cours...");
 
                     // Envoie de la requête à l'api d'authentification pour la connexion juste après l'inscription
                     return fetch("http://localhost:5000/api/v1/auth/login", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ email: email, password: password })
-                    });
-                })
+                    })
 
-                // Réception et je gestion de la réponse en cas d'erreur
-                .then(response => {
-                    if (!response || !response.ok) {
-                        if (response && response.status === 401) {
-                            document.getElementById('error-message').textContent = "Login failed after signup";
-                        } else if (response) {
-                            throw new Error(`Erreur serveur : ${response.status}`);
+                    // Réception et je gestion de la réponse en cas d'erreur
+                    .then(response => {
+                        console.log("📥 Réponse login après inscription :", response);
+
+                        if (!response || !response.ok) {
+                            if (response && response.status === 401) {
+                                document.getElementById('error-message').textContent = "Login failed after signup";
+                            } else if (response) {
+                                throw new Error(`Erreur serveur : ${response.status}`);
+                            }
+                            return null;
                         }
-                        return;
-                    }
-                    return response.json();
-                })
+                        return response.json();
+                    })
 
-                // Gestions des données récupérées
-                .then(data => {
-                    // Vérifie que les data sont correctes sinon sort du fetch
-                    if (!data) return;
+                    // Gestions des données récupérées
+                    .then(data => {
+                        console.log("✅ Données de login reçues :", data);
 
-                    localStorage.setItem("access_token", data.access_token);    // Envoie le token dans le localStorage
-                    localStorage.setItem("refresh_token", data.refresh_token);  // Envoie le refresh token dans le localStorage
-                    localStorage.setItem("user", JSON.stringify(data.user));    // Envoie l'objet user dans le localStorage (récupération du first et last name)
-                    window.location.href = "index.html";                        // Redirection vers la page d'accueil
+                        localStorage.setItem("access_token", data.access_token);    // Envoie le token dans le localStorage
+                        localStorage.setItem("refresh_token", data.refresh_token);  // Envoie le refresh token dans le localStorage
+                        localStorage.setItem("user", JSON.stringify(data.user));    // Envoie l'objet user dans le localStorage (récupération du first et last name)
+                        window.location.href = "index.html";                        // Rédirection vers la page d'accueil
+                    })
                 })
 
                 // Gestions des erreurs si echec de la requête
