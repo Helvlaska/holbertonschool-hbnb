@@ -121,3 +121,7 @@ Respect des fichiers fournis en base, avec :
 ![Aperçu du site HBnB](assets/capture_details_place.png)
 ![Aperçu du site HBnB](assets/capture_login.png)
 ![Aperçu du site HBnB](assets/capture_add_place.png)
+
+## ✅ Validation par W3C HTML & CSS
+
+OK ✅
