@@ -92,10 +92,11 @@ input[type="range"]::-moz-range-thumb {
 #places-list {
     text-decoration: none;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     width: 100%;
     height: 100%;
     flex-wrap: wrap;
+    gap: 40px;
 }
 
 .place-card {
