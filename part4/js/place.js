@@ -17,6 +17,12 @@ const reviewForm = document.getElementById('review-form');
 const stars = document.querySelectorAll('.rating-stars .star');
 let selectedRating = 0;                                             // Initialisation du nb d'étoile(s)
 
+// -------------------------------------------------------- Gestion pour attribuer des images aux users
+
+function getAvatarPath(firstName) {
+    const cleanName = firstName.toLowerCase().replace(/\s+/g, '');
+    return `assets/avatars/${cleanName}.jpg`;
+}
 
 // -------------------------------------------------------- Gestion des étoiles
 
@@ -88,7 +94,10 @@ function displayPlace(place) {
                 <img src="assets/icone_maison_rouge.png" alt="Maison" class="map-marker" id="map-marker">
             </div>
             <div class="place-details-info">
-                <p>Owner : ${place.owner.first_name} ${place.owner.last_name}</p>
+                <div class="place-owner">
+                    <img src="${getAvatarPath(place.owner.first_name)}" alt="owner avatar" class="avatar-img">
+                    <h4>${place.owner.first_name} ${place.owner.last_name}</h4>
+                </div>
                 <div class="place-price">
                     <p>Price per night : ${place.price}</p>
                     <img src="assets/clochette.png" class="place-card-price">
@@ -130,13 +139,17 @@ function displayReviews(place) {
 
     // Boucle sur les infos des places
     for (const  item of place) {
+        const avatar = getAvatarPath(item.user.first_name);
 
         // Création du model de composant injecté dynamiquement dans le html
         reviews_section.innerHTML += `
             <div class="review-details-card">
-                <h4>${item.user.first_name} ${item.user.last_name} </h4>
-                <p>${item.text}</p>
-                <p>${getStars(item.rating)}</p>
+                <img src="${avatar}" alt="${item.user.first_name}" class="avatar-img">
+                <div class="review-info">
+                    <h4>${item.user.first_name} ${item.user.last_name} </h4>
+                    <p>${item.text}</p>
+                    <p>${getStars(item.rating)}</p>
+                </div>
             </div>`
     }
 }
