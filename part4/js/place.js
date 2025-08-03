@@ -20,7 +20,6 @@ let selectedRating = 0;                                             // Initialis
 
 // -------------------------------------------------------- Gestion des étoiles
 
-
 // Gestion des étoiles du formulaire d'ajout de commentaire
 // Boucle pour parcourir les composants étoiles
 for (let index = 0; index < stars.length; index++) {
@@ -41,6 +40,8 @@ for (let index = 0; index < stars.length; index++) {
     star.addEventListener('click', function () {
         selectedRating = starIndex;
         document.getElementById('rating').value = selectedRating;   // Envoie de la note (int) dans le formulaire
+        console.log("Note sélectionnée :", selectedRating);
+        console.log("Champ hidden rating :", document.getElementById('rating').value);
     });
 };
 
@@ -196,6 +197,9 @@ reviewForm.addEventListener('submit', function(event) {
         rating: rating
     };
 
+    console.log("Note envoyée :", rating);
+    console.log("Objet log envoyé :", log);
+
     // Gestion retour des erreurs côté client
     if (!rating || rating < 1 || rating > 5) {
         alert("Veuillez sélectionner une note entre 1 et 5.");
@@ -237,7 +241,6 @@ reviewForm.addEventListener('submit', function(event) {
 document.addEventListener('DOMContentLoaded', function () {
 
     // Récupération des éléments du document pour le form addReview
-    const stars = document.querySelectorAll('#stars img');
     const ratingInput = document.getElementById('rating');
 
     // Vérifie si les composants sont présent
@@ -249,7 +252,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Ecoute au click sur chaque composant
         star.addEventListener('click', function () {
-            const selectedRating = this.getAttribute('data-value');
+            const selectedRating = this.getAttribute('data-index');
             ratingInput.value = selectedRating;                     // Récupère la valeur de la note
 
             // Boucle pour actualisation du style visuel du form étoile
@@ -258,7 +261,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 etoile.classList.remove('selected');    // Remet les étoiles en non sélectionnées
 
                 // Vérifie la valeur de l'étoile et la note sélectionnées
-                if (parseInt(etoile.getAttribute('data-value')) <= parseInt(selectedRating)) {
+                if (parseInt(etoile.getAttribute('data-index')) <= parseInt(selectedRating)) {
                     etoile.classList.add('selected'); // Si OK ont la selectionne
                 }
             }
