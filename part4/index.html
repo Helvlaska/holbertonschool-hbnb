@@ -11,28 +11,27 @@
     <div class="wrapper">
         <header>
             <a href="index.html" class="header-logo-link">
-                <img class="logo" src="assets/Logo_hbnb.png" alt="logo"/>
+                <img class="logo" src="assets/Logo_hbnb.png" alt="logo">
             </a>
             <nav>
                 <a href="login.html" id="login-link" class="login-button" title="login">
-                    <img src="assets/ticket.jpg" class="logo-btn-login">
+                    <img src="assets/ticket.jpg" class="logo-btn-login" alt="ticket">
                 </a>
                 <div class="menu">
                     <a href="add_place.html" id="add-place-link" class="add-place-button" title="add place">
-                        <img src="assets/icone_create_place.png" class="add-place">
+                        <img src="assets/icone_create_place.png" class="add-place" alt="add-place">
                     </a>
                     <a href="#" id="logout-link" class="logout-button">
-                        <img src="assets/cross.png" class="logout-button ">
+                        <img src="assets/cross.png" class="logout-button" alt="logout">
                     </a>
                 </div>
             </nav>
         </header>
         <main>
             <div class="header-place">
-                <h1>Available Places</h2>
-                <section id="filter">
-                    <label for="price-filter">
-                    </label>
+                <h1>Available Places</h1>
+                <div id="filter">
+                    <label for="price-slider"></label>
                     <div class="filter-barre">
                         <input type="range" id="price-slider" min="0" max="3" step="1" value="0">
                         <div id="slider-labels">
@@ -42,13 +41,13 @@
                             <span>10</span>
                         </div>
                     </div>
-                </section>
+                </div>
             </div>
-            <section id="places-list"></section>
+            <div id="places-list"></div>
         </main>
         <footer>
             <div class="footer-info">
-                <img src="assets/dodo_logo.jpg" class="logo-footer">
+                <img src="assets/dodo_logo.jpg" class="logo-footer" alt="logo-footer">
                 <div class="footer-link">
                     <div class="propos">
                         <h3>A propos</h3>
