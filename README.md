@@ -1,236 +1,147 @@
-# 🏠 HBnB – Educational Project Inspired by Airbnb
+![Logo HBnB](docs/assets/Logo_hbnb.png)
 
-Welcome to the **HBnB** project repository, a modular web application inspired
-by Airbnb, developed step-by-step in an educational context.
+# HBnB — Modular Web Application Inspired by Airbnb
 
-This project demonstrates best practices in software design, UML modeling,
-back-end API development, and will progressively extend to front-end features
-and database integration.
+*[Lire en français](README.fr.md)*
 
----
-
-## 🎯 Project Goals
-
-- Design a **clear and modular architecture**
-- **Model and implement** business entities (`User`, `Place`, `Review`, `Amenity`)
-- Develop a **REST API** for data management
-- Gradually extend the project with **additional technical layers**
+**HBnB** is a modular web application developed step-by-step at **Holberton School**,
+covering software architecture design, REST API development, authentication and database integration.
 
 ---
 
-## 🔧 Technologies (progressively introduced)
+## 📸 Preview
 
-- Python
-- UML (Mermaid.js)
-- SQL (upcoming)
-- REST API
-- Front-end (upcoming)
+![Home page](docs/assets/Home.png)
 
+![Login & Signup](docs/assets/capture_login.png)
 
----
-
-## 🧱 Current Repository Structure
-
-```bash
-Holbertonschool-hbnb/Part1
-├── README.md
-├── part1/
-│   ├── package_diagram.md
-│   ├── class_diagram.md
-│   ├── seq_diag_create_user.md
-│   ├── seq_diag_create_place.md
-│   ├── seq_diag_create_review.md
-│   ├── seq_diag_list_place.md
-│   ├── doc_entity_overview.md
-│   └── README.md
-├── docs/
-│   ├── doc_package_diagram.md
-│   ├── doc_class_diagram.md
-│   ├── doc_sequence_diagram.md
-│   ├── doc_sequence_diagram_detailed.md
-```
-
+![Place details](docs/assets/Place_details.png)
 
 ---
 
+## 🛠️ Tech Stack
 
-```bash
-Holbertonschool-hbnb/Part2
-hbnb/
-├── app/
-│   ├── __init__.py                     # Initialize the Flask application
-│   ├── api/
-│   │   ├── __init__.py
-│   │   └── v1/
-│   │       ├── __init__.py
-│   │       ├── users.py                # User-related routes
-│   │       ├── places.py               # Place-related routes
-│   │       ├── reviews.py              # Review-related routes
-│   │       └── amenities.py            # Amenity-related routes
-│   ├── models/
-│   │   ├── __init__.py
-│   │   ├── base_model.py               # BaseModel class
-│   │   ├── user.py                     # User model
-│   │   ├── place.py                    # Place model
-│   │   ├── review.py                   # Review model
-│   │   └── amenity.py                  # Amenity model
-│   ├── services/
-│   │   ├── __init__.py                 # Instantiates HBnBFacade
-│   │   └── facade.py                   # Facade pattern between API, models, and persistence
-│   ├── persistence/
-│   │   ├── __init__.py
-│   │   └── repository.py               # In-memory repository (InMemoryRepository)
-│   └── tests/                          # Unit tests
-│       ├── __init__.py
-│       ├── test_amenity.py             # Tests for Amenity model
-│       ├── test_amenity_api.py         # API tests for Amenity
-│       ├── test_base_model.py          # Tests for BaseModel
-│       ├── test_place.py               # Tests for Place model
-│       ├── test_place_api.py           # API tests for Place
-│       ├── test_review.py              # Tests for Review model
-│       ├── test_review_api.py          # API tests for Review
-│       ├── test_user.py                # Tests for User model
-│       ├── test_user_api.py            # API tests for User
-├── run.py                              # Flask app entry point
-├── config.py                           # Application configuration
-├── requirements.txt                    # Python dependencies
-└── README.md                           # Project documentation
-```
-
+| Layer | Technologies |
+| ------- | ------------- |
+| Backend | Python 3 · Flask · Flask-RESTx |
+| Auth | Flask-JWT-Extended · Flask-Bcrypt |
+| ORM & Database | SQLAlchemy · SQLite (dev) · MySQL (prod) |
+| Frontend | HTML5 · CSS3 · Vanilla JavaScript |
+| Design & Docs | UML · Mermaid.js · Swagger · Figma · Markdown |
+| Tests | unittest · curl |
 
 ---
 
-## 📌 Part 1 – Design (Technical Design & Modeling)
+## 📐 Project Phases
 
-The first phase focused on defining the system’s foundation without writing code.
-The goal was to **model the overall application workflow** through:
+### Part 1 — Architecture & Modeling
 
-- **Package diagrams**: modular organization of components
-- **Class diagrams**: definition of entities and relationships
-- **Sequence diagrams**: use cases (creating a place, a user, a review, etc.)
-- **Textual documentation**: descriptions of entities and business rules
+Design phase focused on modeling the full system before writing any code:
 
-🧰 *Tools used*: UML, Mermaid.js, Markdown
+- **Package diagrams** — modular component organization
+- **Class diagrams** — entities and relationships (User, Place, Review, Amenity)
+- **Sequence diagrams** — use cases (create user, create place, post review, list places)
+- **Entity documentation** — business rules and constraints
 
 👉 See: `part1/` and `docs/`
 
 ---
 
-## ⚙️ Part 2 – Business Logic & API Development
+### Part 2 — Business Logic & REST API
 
-The second phase involves **implementing business entities** and
-**exposing a REST API** to interact with them.
+Implementation of core entities and REST API endpoints:
 
-### ✅ Implemented features:
-
-- Create, retrieve and update:
-  - **users**, **places**, **amenities**, **reviews**
-- Delete **reviews**
-- Manage relationships:
-  - a user owns multiple places and reviews
-  - a place can have multiple amenities
-- Enriched serialization, e.g., including owner name in place data
-
-### 🧱 Technical architecture:
-
-- 3-tier architecture:
-  - Presentation: API (Flask + Flask-Restx)
-  - Business logic: Services / Facade
-  - Persistence (temporary): In-Memory Repository
-- Use of the **Facade design pattern**
-- Manual testing (via `curl`, Swagger) and automated tests (`unittest`)
-
-🛠 *Technologies used*: Python 3, Flask, Flask-Restx
+- Full CRUD on Users, Places, Reviews, Amenities
+- 3-tier architecture: Presentation (API) · Business Logic (Services) · Persistence
+- **Facade design pattern** between API, models and repository
+- In-memory repository for rapid prototyping
+- Automated tests (unittest) and manual testing via Swagger
 
 👉 See: `part2/`
 
 ---
 
-### 🔐 Part 3 – Authentication & Database Integration
+### Part 3 — Authentication & Database Integration
 
-#### ✅ Objectives of this Phase
+- **JWT authentication** (Flask-JWT-Extended) — secure login, token-based access
+- **Password hashing** (Flask-Bcrypt) — never stored in plaintext
+- **Role-based access control** — admin vs. regular users (`is_admin` flag)
+- **SQLAlchemy ORM** replacing in-memory storage
+- Database relationships:
+  - One-to-many: Users → Places, Users → Reviews
+  - Many-to-many: Places ↔ Amenities (association table)
+- **SQLite / MySQL** dual support for dev and production environments
+- ER diagrams with Mermaid.js
 
-- Replace in-memory storage with a relational database
-- Implement JWT-based authentication (Flask-JWT-Extended)
-- Secure passwords using hashing (Flask-Bcrypt)
-- Enforce role-based access control (admin vs. regular users)
-- Enable full CRUD operations on core models (User, Place, Review, Amenity)
-- Support modular configuration (environment-specific)
-- Maintain clean separation of concerns across layers
-- Visualize entity relationships via Mermaid.js ER diagrams
-- Prepare for production with SQLite/MySQL dual support
+👉 See: `part3/`
 
-#### 🧱 Technical Architecture
+---
 
-- SQLAlchemy ORM for database modeling and interaction
-- JWT for secure access and route protection
-- Centralized config via config.py and instance/
-- Dedicated persistence layer for all DB operation
-- Core services remain decoupled from storage logic
-- Admins granted elevated privileges (via is_admin flag)
+### Part 4 — Frontend (solo)
 
-#### 🔍 Key Features
+Fully designed and developed independently:
 
-Secure user authentication (login returns JWT token)
+- **UI/UX design** — Animal Crossing theme, custom logo, consistent visual identity
+- Listing grid with price filter
+- Login & Signup page with JWT authentication
+- Place detail page with reviews, map and amenities
+- Vanilla HTML/CSS/JS — no framework
 
-- Passwords never stored in plaintext (bcrypt-hashed)
-- Database schema supports:
-- One-to-many: Users → Places, Reviews
-- Many-to-many: Places ↔ Amenities (via association table)
-- Modular blueprints and scalable services
-- Easy switching between SQLite (dev) and MySQL (prod)
-- ER diagrams rendered with Mermaid.js for documentation and clarity
+👉 See: `part4/`
 
-🛠 Technologies introduced: Python 3, Flask, SQLAlchemy, Flask-JWT-Extended, Flask-Bcrypt, SQLite/MySQL, Mermaid.js
+---
 
-👉 See: part3/
+## 💡 Key Skills Demonstrated
 
-## 🧠 What We Learned
+- Translating UML architecture into production-ready Python code
+- Designing and consuming a RESTful API (Flask, Flask-RESTx, Swagger)
+- Implementing secure authentication with JWT and bcrypt
+- Modeling relational databases with ORM and managing complex relationships
+- Writing unit and integration tests (unittest)
+- Designing a UI from scratch — visual identity, UX choices, responsive layout
+- Working collaboratively with Git in a team context
 
-### Part 1: Design Phase
+---
 
-- How to model a clear and modular architecture using UML diagrams.
-- How to define and describe core business entities and their relationships.
-- The importance of planning with use cases and sequence diagrams to visualize system interactions.
-- Setting a solid foundation that guides future development phases.
+## 🚀 Run locally
 
-### Part 2: Implementation of Business Logic and API Endpoints
+### Prerequisites
 
-- How to translate designs into modular, maintainable Python code using OOP principles.
-- Building the Business Logic layer with core models like User, Place, Review, and Amenity.
-- Creating RESTful API endpoints using Flask and flask-restx for clear and scalable communication.
-- Implementing data serialization and handling relationships between entities.
-- Testing and validating API functionality to ensure reliability and correctness.
+- Python 3.10+
+- pip
+- SQLite or MySQL
 
-### Part 3 :  Authentication & Database Integration
+### Installation
 
-- Authentication and Authorization: Implement JWT-based user authentication using Flask-JWT-Extended and role-based access control with the is_admin attribute for specific endpoints.
-- Database Integration: Replace in-memory storage with SQLite for development using SQLAlchemy as the ORM and prepare for MySQL or other production grade RDBMS.
-- CRUD Operations with Database Persistence: Refactor all CRUD operations to interact with a persistent database.
-- Database Design and Visualization: Design the database schema using mermaid.js and ensure all relationships between entities are correctly mapped.
-- Data Consistency and Validation: Ensure that data validation and constraints are properly enforced in the models.
+```bash
+# Clone the repo
+git clone https://github.com/Helvlaska/holbertonschool-hbnb.git
+cd holbertonschool-hbnb
 
-Together, these parts helped us develop practical skills in software design and API development, creating a robust base for the HBnB project’s upcoming stages.
+# Install dependencies
+pip install -r requirements.txt
 
-## 🚧 Upcoming Work
+# Run the API (Part 2 or Part 3)
+cd part2/hbnb  # or part3/hbnb
+python run.py
 
-Future phases (Parts 4) will include:
-
-- 🧪 **Extended automated testing**
-- 🖼 **Front-end development** (HTML/JS or modern framework)
-- 🧩 **Progressive deployment on servers or containers**
+# Run the frontend (Part 4) — in a separate terminal
+cd part4
+python3 -m http.server 8080
+# Then open http://localhost:8080
+```
 
 ---
 
 ## 👩‍💻 Authors
 
-- Anne-Cécile Colléter
-- Claire Castan
+**Backend (Parts 1–3)** — developed in collaboration:
 
----
+- **Claire Castan** — [LinkedIn](https://www.linkedin.com/in/claire-castan) · [GitHub](https://github.com/Helvlaska)
+- **Anne-Cécile Colléter**
 
-## 📄 License
+**Frontend (Part 4)** — designed and developed solo by:
 
-Educational project — Holberton School.
+- **Claire Castan** — UI/UX design, visual identity, Animal Crossing theme, logo creation
 
----
+📄 Educational project — Holberton School

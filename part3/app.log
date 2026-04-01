@@ -342,3 +342,53 @@
 2025-07-14 15:58:23,878 INFO: 127.0.0.1 - - [14/Jul/2025 15:58:23] "POST /api/v1/auth/login HTTP/1.1" 200 -
 2025-07-14 15:59:17,368 INFO: 127.0.0.1 - - [14/Jul/2025 15:59:17] "[35m[1mPOST /api/v1/places/ HTTP/1.1[0m" 201 -
 2025-07-14 15:59:21,805 INFO: 127.0.0.1 - - [14/Jul/2025 15:59:21] "[31m[1mPOST /api/v1/places/ HTTP/1.1[0m" 400 -
+2026-03-31 10:41:59,105 INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-31 10:41:59,107 INFO: [33mPress CTRL+C to quit[0m
+2026-03-31 10:41:59,110 INFO:  * Restarting with stat
+2026-03-31 10:41:59,702 WARNING:  * Debugger is active!
+2026-03-31 10:41:59,725 INFO:  * Debugger PIN: 537-752-186
+2026-03-31 10:45:02,719 INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-31 10:45:02,719 INFO: [33mPress CTRL+C to quit[0m
+2026-03-31 10:45:02,720 INFO:  * Restarting with stat
+2026-03-31 10:45:03,243 WARNING:  * Debugger is active!
+2026-03-31 10:45:03,246 INFO:  * Debugger PIN: 537-752-186
+2026-03-31 10:45:08,856 INFO: 127.0.0.1 - - [31/Mar/2026 10:45:08] "[33mGET / HTTP/1.1[0m" 404 -
+2026-03-31 10:45:10,388 INFO: 127.0.0.1 - - [31/Mar/2026 10:45:10] "[33mGET / HTTP/1.1[0m" 404 -
+2026-03-31 10:47:13,209 INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-31 10:47:13,209 INFO: [33mPress CTRL+C to quit[0m
+2026-03-31 10:47:13,209 INFO:  * Restarting with stat
+2026-03-31 10:47:13,766 WARNING:  * Debugger is active!
+2026-03-31 10:47:13,769 INFO:  * Debugger PIN: 537-752-186
+2026-03-31 10:47:27,297 INFO: 127.0.0.1 - - [31/Mar/2026 10:47:27] "[33mGET / HTTP/1.1[0m" 404 -
+2026-03-31 10:50:14,813 INFO: 127.0.0.1 - - [31/Mar/2026 10:50:14] "GET /api/v1/ HTTP/1.1" 200 -
+2026-03-31 10:50:14,858 INFO: 127.0.0.1 - - [31/Mar/2026 10:50:14] "GET /swaggerui/droid-sans.css HTTP/1.1" 200 -
+2026-03-31 10:50:14,859 INFO: 127.0.0.1 - - [31/Mar/2026 10:50:14] "GET /swaggerui/swagger-ui.css HTTP/1.1" 200 -
+2026-03-31 10:50:14,862 INFO: 127.0.0.1 - - [31/Mar/2026 10:50:14] "GET /swaggerui/swagger-ui-bundle.js HTTP/1.1" 200 -
+2026-03-31 10:50:14,866 INFO: 127.0.0.1 - - [31/Mar/2026 10:50:14] "GET /swaggerui/swagger-ui-standalone-preset.js HTTP/1.1" 200 -
+2026-03-31 10:50:15,051 INFO: 127.0.0.1 - - [31/Mar/2026 10:50:15] "GET /swagger.json HTTP/1.1" 200 -
+2026-03-31 10:50:15,054 INFO: 127.0.0.1 - - [31/Mar/2026 10:50:15] "GET /swaggerui/favicon-32x32.png HTTP/1.1" 200 -
+2026-03-31 10:54:45,312 INFO: 127.0.0.1 - - [31/Mar/2026 10:54:45] "OPTIONS /api/v1/places/ HTTP/1.1" 200 -
+2026-03-31 10:54:45,691 INFO: 127.0.0.1 - - [31/Mar/2026 10:54:45] "GET /api/v1/places/ HTTP/1.1" 200 -
+2026-03-31 10:54:56,578 INFO: 127.0.0.1 - - [31/Mar/2026 10:54:56] "OPTIONS /api/v1/places/ HTTP/1.1" 200 -
+2026-03-31 10:54:56,858 INFO: 127.0.0.1 - - [31/Mar/2026 10:54:56] "GET /api/v1/places/ HTTP/1.1" 200 -
+2026-03-31 10:55:38,315 INFO: 127.0.0.1 - - [31/Mar/2026 10:55:38] "OPTIONS /api/v1/places/ HTTP/1.1" 200 -
+2026-03-31 10:55:44,640 INFO: 127.0.0.1 - - [31/Mar/2026 10:55:44] "OPTIONS /api/v1/places/5cc0f90c-8b83-499e-82c1-6a00ae694f9e HTTP/1.1" 200 -
+2026-03-31 10:55:44,915 INFO: 127.0.0.1 - - [31/Mar/2026 10:55:44] "GET /api/v1/places/5cc0f90c-8b83-499e-82c1-6a00ae694f9e HTTP/1.1" 200 -
+2026-03-31 10:56:21,346 INFO: 127.0.0.1 - - [31/Mar/2026 10:56:21] "OPTIONS /api/v1/places/ HTTP/1.1" 200 -
+2026-03-31 10:56:23,920 INFO: 127.0.0.1 - - [31/Mar/2026 10:56:23] "OPTIONS /api/v1/places/3503fcb8-52a0-4ea1-b793-1be5dd12f024 HTTP/1.1" 200 -
+2026-03-31 10:56:24,196 INFO: 127.0.0.1 - - [31/Mar/2026 10:56:24] "GET /api/v1/places/3503fcb8-52a0-4ea1-b793-1be5dd12f024 HTTP/1.1" 200 -
+2026-03-31 10:56:59,992 INFO: 127.0.0.1 - - [31/Mar/2026 10:56:59] "OPTIONS /api/v1/places/ HTTP/1.1" 200 -
+2026-03-31 10:57:05,380 INFO: 127.0.0.1 - - [31/Mar/2026 10:57:05] "OPTIONS /api/v1/places/96a07b81-3d4c-4c50-98bf-5ba17588313b HTTP/1.1" 200 -
+2026-03-31 10:57:05,660 INFO: 127.0.0.1 - - [31/Mar/2026 10:57:05] "GET /api/v1/places/96a07b81-3d4c-4c50-98bf-5ba17588313b HTTP/1.1" 200 -
+2026-03-31 10:57:42,305 INFO: 127.0.0.1 - - [31/Mar/2026 10:57:42] "OPTIONS /api/v1/places/ HTTP/1.1" 200 -
+2026-03-31 11:02:48,746 INFO: 127.0.0.1 - - [31/Mar/2026 11:02:48] "OPTIONS /api/v1/places/6339a9f5-7a53-4403-9d49-d4ba8989ecea HTTP/1.1" 200 -
+2026-03-31 11:02:49,030 INFO: 127.0.0.1 - - [31/Mar/2026 11:02:49] "GET /api/v1/places/6339a9f5-7a53-4403-9d49-d4ba8989ecea HTTP/1.1" 200 -
+2026-03-31 11:03:22,760 INFO: 127.0.0.1 - - [31/Mar/2026 11:03:22] "OPTIONS /api/v1/places/ HTTP/1.1" 200 -
+2026-03-31 11:03:26,490 INFO: 127.0.0.1 - - [31/Mar/2026 11:03:26] "OPTIONS /api/v1/places/4bd99f94-320d-41a6-9232-e0817fa419ee HTTP/1.1" 200 -
+2026-03-31 11:03:26,775 INFO: 127.0.0.1 - - [31/Mar/2026 11:03:26] "GET /api/v1/places/4bd99f94-320d-41a6-9232-e0817fa419ee HTTP/1.1" 200 -
+2026-03-31 11:03:47,456 INFO: 127.0.0.1 - - [31/Mar/2026 11:03:47] "OPTIONS /api/v1/places/ HTTP/1.1" 200 -
+2026-03-31 11:03:50,215 INFO: 127.0.0.1 - - [31/Mar/2026 11:03:50] "OPTIONS /api/v1/places/02e365eb-d218-424c-8c4a-68b981f04bbf HTTP/1.1" 200 -
+2026-03-31 11:03:50,498 INFO: 127.0.0.1 - - [31/Mar/2026 11:03:50] "GET /api/v1/places/02e365eb-d218-424c-8c4a-68b981f04bbf HTTP/1.1" 200 -
